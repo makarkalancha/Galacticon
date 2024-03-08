@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+//val support_version = rootProject.extra.get("support_version") as String
+
 android {
     namespace = "com.makco.galacticon"
     compileSdk = 34
@@ -68,4 +70,23 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+//    implementation("androidx.appcompat:appcompat:$rootProject.appCompatVersion")
+    implementation("androidx.appcompat:appcompat:1.4.0")
+
+//    implementation("androidx.activity:activity-ktx:$rootProject.activityVersion")
+    implementation("androidx.activity:activity-ktx:1.4.0")
+//    implementation("androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.2")
+//    implementation("com.google.android.material:material:$rootProject.materialVersion")
+    implementation("com.google.android.material:material:1.4.0")
+//    implementation("com.android.support:recyclerview-v7:28.0.0")
+//    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+//    implementation("androidx.legacy:legacy-support-v13:1.0.0")
+//    implementation("androidx.cardview:cardview:1.0.0")
+//    implementation("androidx.appcompat:appcompat:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.0.0")
+
+
+
 }

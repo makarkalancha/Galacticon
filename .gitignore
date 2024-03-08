@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea/*
+.gradle/*
+gradle/*
+app/libs/*
+gradlew
+gradlew.bat
