@@ -72,6 +72,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    //TODO !!!!find a way to externalize version variables!!!!
 //    implementation("androidx.appcompat:appcompat:$rootProject.appCompatVersion")
     implementation("androidx.appcompat:appcompat:1.4.0")
 
@@ -87,6 +88,9 @@ dependencies {
 //    implementation("androidx.cardview:cardview:1.0.0")
 //    implementation("androidx.appcompat:appcompat:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.0.0")
+
+    implementation("com.squareup.okhttp3:okhttp:3.10.0")
+    implementation("com.squareup.picasso:picasso:2.5.2")
 
 
 
