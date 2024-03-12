@@ -69,4 +69,6 @@ class RecyclerAdapter (private val photos: ArrayList<Photo>) : RecyclerView.Adap
     fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View{
         return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
     }
+
+    override fun getItemCount() = photos.size
 }
