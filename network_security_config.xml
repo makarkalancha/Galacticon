@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config>
+        <trust-anchors>
+            <certificates src="@raw/api_nasa_gov_crt"/>
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+<!--    <domain-config>-->
+<!--        <domain includeSubdomains="true">api.nasa.gov</domain>-->
+<!--        <trust-anchors>-->
+<!--            <certificates src="@raw/api_nasa_gov_crt"/>-->
+<!--&lt;!&ndash;            <certificates src="system"/>&ndash;&gt;-->
+<!--        </trust-anchors>-->
+<!--    </domain-config>-->
+</network-security-config>

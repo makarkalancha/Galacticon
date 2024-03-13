@@ -89,8 +89,26 @@ dependencies {
 //    implementation("androidx.appcompat:appcompat:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.0.0")
 
-    implementation("com.squareup.okhttp3:okhttp:3.10.0")
+//    implement the latest version of okhttp3 with tls
+    testImplementation("com.squareup.okhttp3:okhttp-tls:4.12.0")
+//    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
+
+
+
+
+//    implementation("com.squareup.okhttp3:okhttp:3.10.0")
+//    implementation ("com.squareup.okhttp3:okhttp-tls")
+//    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
+//    // define any required OkHttp artifacts without version
+//    implementation("com.squareup.okhttp3:okhttp")
+//    implementation("com.squareup.okhttp3:logging-interceptor")
     implementation("com.squareup.picasso:picasso:2.5.2")
+
+    implementation("commons-io:commons-io:2.15.1")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+
+
 
 
 

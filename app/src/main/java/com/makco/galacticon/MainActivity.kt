@@ -6,9 +6,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.makco.galacticon.databinding.ActivityMainBinding
 import java.io.IOException
 
-class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse {
+/*
+to solve OkHttpClient Intermittent SSLHandshakeException calling a GET
+https://developer.android.com/privacy-and-security/security-gms-provider#kotlin
+https://stackoverflow.com/questions/68639187/trust-anchor-for-certification-path-not-found-on-android-project
+ */
+private const val ERROR_DIALOG_REQUEST_CODE = 1
+
+class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse/*, ProviderInstaller.ProviderInstallListener */{
 
     private var photosList: ArrayList<Photo> = ArrayList()
+//    private var retryProviderInstall: Boolean = false
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var binding: ActivityMainBinding
@@ -17,6 +25,7 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        ProviderInstaller.installIfNeededAsync(this, this)
 //        setContentView(R.layout.activity_main)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -54,4 +63,66 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
             adapter.notifyItemInserted(photosList.size - 1)
         }
     }
+
+//    /**
+//     * This method is called if updating fails. The error code indicates
+//     * whether the error is recoverable.
+//     */
+//    override fun onProviderInstallFailed(errorCode: Int, recoveryIntent: Intent?) {
+//        GoogleApiAvailability.getInstance().apply {
+//            if(isUserResolvableError(errorCode)){
+//                Log.d("MainActivity", "onProviderInstallFailed->in if")
+//                //Recoverable erro. Show a dialog promptin the user to
+//                // install/update/enable Google Play services.
+//                showErrorDialogFragment(this@MainActivity, errorCode, ERROR_DIALOG_REQUEST_CODE){
+//                    //The user chose not to take the recovery action.
+//                    onProviderInstallerNotAvailable()
+//                }
+//            }else{
+//                Log.d("MainActivity", "onProviderInstallFailed->in else")
+//                onProviderInstallerNotAvailable()
+//            }
+//        }
+//    }
+//
+//    /**
+//     * This method is only called if the provider is successfully updated
+//     * (or is already up to date).
+//     */
+//    override fun onProviderInstalled() {
+//        //Provider is up to date; app can make secure network calls.
+//        if(photosList.isEmpty()){
+//            Log.d("MainActivity", "onProviderInstalled->in if")
+//            requestPhoto()
+//        }
+//    }
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if(resultCode == ERROR_DIALOG_REQUEST_CODE){
+//            //Adding a fragment via GoogleApiAvailability.showErrorDialogFragment
+//            // before the instance state is restored throws an error. So instead,
+//            // set a flag here, which causes the fragment to delay until
+//            // onPostResume.
+//            Log.d("MainActivity", "onActivityResult->in if")
+//            retryProviderInstall = true
+//        }
+//    }
+//
+//    override fun onPostResume() {
+//        super.onPostResume()
+//        if(retryProviderInstall){
+//            Log.d("MainActivity", "onPostResume->if")
+//            //It's safe to retry installation
+//            ProviderInstaller.installIfNeededAsync(this, this)
+//        }
+//        retryProviderInstall = false
+//    }
+//
+//    private fun onProviderInstallerNotAvailable(){
+//        //This is reached if the provider can't be updated for some reason.
+//        // App should consider all HTTP communication to be vulnerable and take
+//        // appropriate action.
+//        Log.d("MainActivity", "onProviderInstallerNotAvailable->inside")
+//    }
 }
