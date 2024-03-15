@@ -90,9 +90,15 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.0.0")
 
 //    implement the latest version of okhttp3 with tls
-    testImplementation("com.squareup.okhttp3:okhttp-tls:4.12.0")
-//    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
+//    testImplementation("com.squareup.okhttp3:okhttp-tls:4.12.0")
+//    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+//    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+//    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
+//    implementation("com.squareup.okhttp3:okhttp:5.0.0-SNAPSHOT")
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp-tls
+//    testImplementation("com.squareup.okhttp3:okhttp-tls:4.12.0")
+
 
 
 
