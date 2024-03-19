@@ -1,5 +1,6 @@
 package com.makco.galacticon
 
+import Http
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.makco.galacticon.databinding.RecyclerviewItemRowBinding
+import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 
 class RecyclerAdapter (private val photos: ArrayList<Photo>) : RecyclerView.Adapter<RecyclerAdapter.PhotoHolder>() {
@@ -27,7 +29,13 @@ class RecyclerAdapter (private val photos: ArrayList<Photo>) : RecyclerView.Adap
             this.photo = photo
             //It also adds the suggested Picasso import, which is a library that makes it simpler to
             // get images from a given URL.
-            Picasso.with(itemRowBinding.root.context).load(photo.url).into(itemRowBinding.itemImage)
+            Picasso.get().setLoggingEnabled(true)
+            Log.e("bindPhoto", photo.url)
+            val builder : Picasso.Builder = Picasso.Builder(itemRowBinding.root.context)
+            builder.downloader(OkHttp3Downloader(Http.client()))
+            val picasso: Picasso = builder.build()
+            picasso.load(photo.url).into(itemRowBinding.itemImage)
+
             itemRowBinding.itemDate.text = photo.humanDate
             itemRowBinding.itemDescription.text = photo.expalnation
         }

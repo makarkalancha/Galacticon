@@ -3,8 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
-//val support_version = rootProject.extra.get("support_version") as String
-
 android {
     namespace = "com.makco.galacticon"
     compileSdk = 34
@@ -109,7 +107,8 @@ dependencies {
 //    // define any required OkHttp artifacts without version
 //    implementation("com.squareup.okhttp3:okhttp")
 //    implementation("com.squareup.okhttp3:logging-interceptor")
-    implementation("com.squareup.picasso:picasso:2.5.2")
+//    implementation("com.squareup.picasso:picasso:2.5.2")
+    implementation("com.squareup.picasso:picasso:2.8")
 
     implementation("commons-io:commons-io:2.15.1")
     implementation("com.google.android.gms:play-services-auth:21.0.0")
