@@ -31,6 +31,6 @@
             </intent-filter>
         </activity>
 
-<!--        <activity android:name=".PhotoActivity"></activity>-->
+        <activity android:name=".PhotoActivity"></activity>
     </application>
 </manifest>

@@ -29,7 +29,7 @@ class RecyclerAdapter (private val photos: ArrayList<Photo>) : RecyclerView.Adap
             this.photo = photo
             //It also adds the suggested Picasso import, which is a library that makes it simpler to
             // get images from a given URL.
-            Picasso.get().setLoggingEnabled(true)
+//            Picasso.get().setLoggingEnabled(true)
             Log.e("bindPhoto", photo.url)
             val builder : Picasso.Builder = Picasso.Builder(itemRowBinding.root.context)
             builder.downloader(OkHttp3Downloader(Http.client()))
