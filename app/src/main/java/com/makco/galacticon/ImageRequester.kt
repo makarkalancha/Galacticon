@@ -4,6 +4,7 @@ import Http
 import android.app.Activity
 import android.content.Context
 import android.net.Uri.Builder
+import android.util.Log
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
@@ -38,7 +39,6 @@ class ImageRequester(listeningActivity: Activity) {
 
     fun getPhoto(){
         val date = dateFormat.format(calendar.time)
-//        Log.d("getPhoto", context.getString(R.string.nasa_api_key))
 
         val urlRequest = Builder()
             .scheme(URL_SCHEME)
@@ -46,8 +46,11 @@ class ImageRequester(listeningActivity: Activity) {
             .appendPath(URL_PATH_1)
             .appendPath(URL_PATH_2)
             .appendQueryParameter(URL_QUERY_PARAM_DATE_KEY, date)
+//            .appendQueryParameter(URL_QUERY_PARAM_DATE_KEY, "2024-03-15")
             .appendQueryParameter(URL_QUERY_PARAM_API_KEY, context.getString(R.string.nasa_api_key))
             .build().toString()
+
+        Log.d("getPhoto->url", urlRequest)
 
         val request = Request.Builder().url(urlRequest).build()
         isLoadingData = true
@@ -62,6 +65,7 @@ class ImageRequester(listeningActivity: Activity) {
                 try{
 //                    val photoJson = JSONObject(response.body()!!.string())
                     val photoJson = JSONObject(response.body!!.string())
+//                    Log.d("onResponse", photoJson!!.toString())
 
                     calendar.add(Calendar.DAY_OF_YEAR, -1)
 

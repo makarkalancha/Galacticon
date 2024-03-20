@@ -3,6 +3,7 @@ package com.makco.galacticon
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.makco.galacticon.databinding.ActivityMainBinding
 import java.io.IOException
 
@@ -17,6 +18,8 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse/
 
     private var photosList: ArrayList<Photo> = ArrayList()
 //    private var retryProviderInstall: Boolean = false
+    private val lastVisibleItemPosition: Int
+        get() = linearLayoutManager.findLastVisibleItemPosition()
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var binding: ActivityMainBinding
@@ -38,6 +41,8 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse/
         binding.recyclerView.adapter = adapter
 
         imageRequester = ImageRequester(this)
+
+        setRecyclerViewScrollListener()
     }
 
     override fun onStart() {
@@ -64,6 +69,17 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse/
         }
     }
 
+    private fun setRecyclerViewScrollListener(){
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val totalItemCount = recyclerView.layoutManager!!.itemCount
+                if(!imageRequester.isLoadingData && totalItemCount == lastVisibleItemPosition + 1){
+                    requestPhoto()
+                }
+            }
+        })
+    }
 //    /**
 //     * This method is called if updating fails. The error code indicates
 //     * whether the error is recoverable.
