@@ -1,26 +1,28 @@
 package com.makco.galacticon
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.makco.galacticon.databinding.ActivityMainBinding
 import java.io.IOException
 
-/*
-to solve OkHttpClient Intermittent SSLHandshakeException calling a GET
-https://developer.android.com/privacy-and-security/security-gms-provider#kotlin
-https://stackoverflow.com/questions/68639187/trust-anchor-for-certification-path-not-found-on-android-project
- */
-private const val ERROR_DIALOG_REQUEST_CODE = 1
 
 class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse/*, ProviderInstaller.ProviderInstallListener */{
 
     private var photosList: ArrayList<Photo> = ArrayList()
 //    private var retryProviderInstall: Boolean = false
     private val lastVisibleItemPosition: Int
-        get() = linearLayoutManager.findLastVisibleItemPosition()
+        get() = if (binding.recyclerView.layoutManager == linearLayoutManager){
+            linearLayoutManager.findLastVisibleItemPosition()
+        }else{
+            gridLayoutManager.findLastVisibleItemPosition()
+        }
 
+    private lateinit var gridLayoutManager: GridLayoutManager
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: RecyclerAdapter
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse/
         setContentView(view)
 
         linearLayoutManager = LinearLayoutManager(this)
+        gridLayoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.layoutManager = linearLayoutManager
         adapter = RecyclerAdapter(photosList)
         binding.recyclerView.adapter = adapter
@@ -52,6 +55,19 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse/
         if(photosList.isEmpty()){
             requestPhoto()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.action_change_recycler_manager){
+            changeLayouManager()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun requestPhoto(){
@@ -79,6 +95,20 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse/
                 }
             }
         })
+    }
+
+    private fun changeLayouManager(){
+        if(binding.recyclerView.layoutManager == linearLayoutManager){
+            // If it’s using the LinearLayoutManager, it swaps in the GridLayoutManager.
+            binding.recyclerView.layoutManager = gridLayoutManager
+            // It requests a new photo if your grid layout only has one photo to show.
+            if(photosList.size == 1){
+                requestPhoto()
+            }
+        }else{
+            // If it’s using the GridLayoutManager, it swaps in the LinearLayoutManager.
+            binding.recyclerView.layoutManager = linearLayoutManager
+        }
     }
 //    /**
 //     * This method is called if updating fails. The error code indicates
